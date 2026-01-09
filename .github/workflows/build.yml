@@ -3,11 +3,14 @@ name: Build Electron App
 on:
   push:
     branches:
-      - main # Se ejecutará cada vez que hagas merge a main
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   release:
-    runs-on: windows-latest # Usamos un servidor Windows de GitHub (sin antivirus restrictivos)
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -25,10 +28,12 @@ jobs:
       - name: Build Electron App
         run: npm run build
         env:
-          CSC_STRATEGY: none # Saltamos la firma igual que hacíamos en local
+          CSC_STRATEGY: none
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Executable
+        if: always() 
         uses: actions/upload-artifact@v4
         with:
           name: programa-instalable
-          path: dist-executable/*.exe # Sube todos los archivos .exe generados
+          path: dist-executable/*.exe
