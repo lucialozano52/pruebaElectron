@@ -2,6 +2,7 @@
   "name": "mi-proyecto-react",
   "private": true,
   "version": "0.0.0",
+  "author": "Lucia Lozano",
   "main": "main.js",
   "scripts": {
     "dev": "vite",
