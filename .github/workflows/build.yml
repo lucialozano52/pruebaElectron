@@ -1,0 +1,34 @@
+name: Build Electron App
+
+on:
+  push:
+    branches:
+      - main # Se ejecutará cada vez que hagas merge a main
+
+jobs:
+  release:
+    runs-on: windows-latest # Usamos un servidor Windows de GitHub (sin antivirus restrictivos)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron App
+        run: npm run build
+        env:
+          CSC_STRATEGY: none # Saltamos la firma igual que hacíamos en local
+
+      - name: Upload Executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: programa-instalable
+          path: dist-executable/*.exe # Sube todos los archivos .exe generados
