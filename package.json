@@ -56,11 +56,13 @@
       "icon": "public/OlalaHomes.ico"
     },
     "nsis": {
-      "oneClick": false,
-      "perMachine": false, 
-      "allowToChangeInstallationDirectory": true,
+      "oneClick": true,
+      "perMachine": true, 
+      "allowToChangeInstallationDirectory": false,
       "installerIcon": "public/OlalaHomes.ico",
-      "uninstallerIcon": "public/OlalaHomes.ico"
+      "uninstallerIcon": "public/OlalaHomes.ico",
+      "createDesktopShortcut": true,
+      "runAfterFinish": false
     },
     "directories": {
       "output": "dist-executable"
